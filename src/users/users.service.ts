@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserInput } from './dto/update-user.input';
 
 @Injectable()
 export class UsersService {
@@ -31,7 +32,22 @@ export class UsersService {
         role: role,
       },
     });
+    return user;
+  }
 
+  async update(id: string, updateUserData: UpdateUserInput): Promise<User> {
+    const { name, email, password, role } = updateUserData;
+    const user = this.prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name: name,
+        email: email,
+        password: password,
+        role: role,
+      },
+    });
     return user;
   }
 }

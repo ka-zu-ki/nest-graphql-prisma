@@ -4,24 +4,24 @@ import { Type } from 'class-transformer';
 import { IsNotEmpty, IsString, Max, MaxLength } from 'class-validator';
 
 @InputType()
-export class CreateUserInput {
+export class UpdateUserInput {
   @IsString()
   @IsNotEmpty()
   @MaxLength(40)
-  name: string;
+  name?: string;
 
   @IsString()
   @IsNotEmpty()
   @Max(15)
-  email: string;
+  email?: string;
 
   @IsString()
   @IsNotEmpty()
-  password: string;
+  password?: string;
 
   @IsString()
   @IsNotEmpty()
   @Type(() => String)
   @Field(() => String)
-  role: Role;
+  role?: Role;
 }

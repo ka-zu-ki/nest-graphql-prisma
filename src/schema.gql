@@ -16,6 +16,7 @@ scalar DateTime
 
 type Mutation {
   createUser(newUserData: CreateUserInput!): User
+  deleteUser(id: String!): User
   updateUser(id: String!, updateUserData: UpdateUserInput!): User
 }
 

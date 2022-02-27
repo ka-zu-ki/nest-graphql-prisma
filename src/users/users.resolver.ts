@@ -1,7 +1,7 @@
+import { ParseUUIDPipe } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { UsersArgs } from './dto/users.args';
 import { User } from './models/user.model';
 import { UsersService } from './users.service';
 
@@ -15,8 +15,8 @@ export class UsersResolver {
   }
 
   @Query(() => User, { name: 'user', nullable: true })
-  async getUser(@Args() args: UsersArgs) {
-    return this.usersService.findById(args.id);
+  async getUser(@Args('id', new ParseUUIDPipe()) id: string) {
+    return this.usersService.findById(id);
   }
 
   @Mutation(() => User, { name: 'createUser', nullable: true })
@@ -28,9 +28,14 @@ export class UsersResolver {
 
   @Mutation(() => User, { name: 'updateUser', nullable: true })
   async updateUser(
-    @Args() args: UsersArgs,
+    @Args('id', new ParseUUIDPipe()) id: string,
     @Args('updateUserData') updateUserData: UpdateUserInput,
   ) {
-    return this.usersService.update(args.id, updateUserData);
+    return this.usersService.update(id, updateUserData);
+  }
+
+  @Mutation(() => User, { name: 'deleteUser', nullable: true })
+  async deleteUser(@Args('id', new ParseUUIDPipe()) id: string) {
+    return this.usersService.destroy(id);
   }
 }

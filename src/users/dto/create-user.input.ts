@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { Role } from '@prisma/client';
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength, Min } from 'class-validator';
 
 @InputType()
 export class CreateUserInput {

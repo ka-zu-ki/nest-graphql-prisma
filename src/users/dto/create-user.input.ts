@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { Role } from '@prisma/client';
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsString, Max, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 @InputType()
 export class CreateUserInput {
@@ -12,7 +12,6 @@ export class CreateUserInput {
 
   @IsString()
   @IsNotEmpty()
-  @Max(15)
   email: string;
 
   @IsString()
